@@ -87,7 +87,7 @@ const Portfolio = () => {
           </div>
 
           {/* Filter pills */}
-          <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap" style={{ scrollbarWidth: "none" }}>
+          <div className="flex gap-2 overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap md:pb-2" style={{ scrollbarWidth: "none" }}>
             {filters.map((f) => (
               <button
                 key={f}

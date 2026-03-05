@@ -106,7 +106,7 @@ const Services = () => {
           </div>
 
           {/* Tab bar */}
-          <div className="flex overflow-x-auto border-t border-white/[0.08]" style={{ scrollbarWidth: "none" }}>
+          <div className="flex overflow-x-auto border-t border-white/[0.08] pb-2 -mx-6 px-6 md:mx-0 md:px-0" style={{ scrollbarWidth: "none" }}>
             {tabs.map((tab) => (
               <button
                 key={tab.id}
