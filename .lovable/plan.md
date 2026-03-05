@@ -1,43 +1,51 @@
 
 
-# Carousel Upgrade + Mobile Polish
+# Bespoke Websites Page — `/services/websites`
 
-## 1. Embla Carousel Integration
-Replace the CSS `overflow-x-auto` scroll on **Industries** and **Testimonials** with Embla Carousel (already installed as `embla-carousel-react`). This gives us:
-- Smooth momentum-based dragging on desktop
-- Native touch swiping on mobile
-- Proper slide alignment and snapping
-- `dragFree: true` for the Netflix-style feel
+## Overview
+An editorial-style deep-dive page with 11 sections following the "bold claim → proof" rhythm. Reuses existing design system (Syne + Outfit, dark/light alternation, gold accents, Navbar, CTAFooter).
 
-Both components will use `useEmblaCarousel` directly (no need for the shadcn Carousel wrapper — too opinionated for this edge-to-edge layout).
+## New Files
 
-## 2. Mobile Responsiveness Pass
-Targeted fixes across all sections:
+### `src/pages/BespokeWebsites.tsx`
+Page shell — imports Navbar, all section components, and a shared footer (reuse CTAFooter or a slimmed version).
 
-**Navbar** — Mobile menu gets a smooth slide-down animation instead of hard toggle. Lock body scroll when open.
+### Section Components (all in `src/components/bespoke/`)
 
-**Hero** — Reduce bottom padding on mobile. Stack CTAs vertically on very small screens (`flex-col` below 400px).
+1. **`BespokeHero.tsx`** — Light bg, centered layout. Two pill tags, massive all-caps Syne headline, body paragraph, thin divider, sub-label. Generous whitespace.
 
-**Industries carousel** — Cards shrink to `280px` wide on mobile. Proper touch area and gap adjustments.
+2. **`FeaturedShowcase.tsx`** — Full-bleed image (70vh), dark gradient overlay from bottom-left, overlaid text (uppercase label, bold headline, "View Project →" link). Edge-to-edge, no container constraints on the image.
 
-**Services** — On mobile, image goes above content (already `grid-cols-1` on small). Tab labels get smaller text. Consider horizontal scroll for tab bar if it wraps awkwardly.
+3. **`OurApproach.tsx`** — Light bg, two-column (image left 45%, content right). Uppercase label, large headline, body copy, "Supporting Services" pill links.
 
-**Portfolio** — Cards stack to single column on mobile (already handled). Filter pills become horizontally scrollable if they overflow.
+4. **`PhilosophyCarousel.tsx`** — Light bg, Embla carousel with `dragFree: true`. Large cards (image top 65%, text below). 4 cards, ~2 visible at a time. Navigation dots + arrow buttons at bottom.
 
-**Stats** — Already `grid-cols-2` on mobile, which works. Add horizontal dividers between rows on mobile.
+5. **`BoldStatement.tsx`** — Light bg, centered. Small label + massive all-caps headline. 80-100px vertical padding. Pure visual breather.
 
-**Testimonials carousel** — Cards shrink to `300px` on mobile with Embla integration.
+6. **`DeepDive.tsx`** — Light bg, two-column (image left, content right). Headline, body paragraph, then two sub-points in a 2-col grid within the right column.
 
-**Journal** — Already stacks on mobile. Reduce image aspect ratio slightly on small screens.
+7. **`Differentiator.tsx`** — Dark bg, flipped two-column (text left, large image right 55%). Gold label, white headline, muted body text, sub-point with bold title.
 
-**CTA + Footer** — Footer link columns stack properly. Bottom bar centers on mobile. Social icons get proper spacing.
+8. **`JournalFeed.tsx`** — Light bg, bold statement headline + Embla horizontal article cards (4 cards, 2 visible). Dots + arrows + "View More" link.
 
-## 3. Implementation Files
-- `src/components/Industries.tsx` — Embla carousel + mobile card sizing
-- `src/components/Testimonials.tsx` — Embla carousel + mobile card sizing
-- `src/components/Navbar.tsx` — Animated mobile menu + body scroll lock
-- `src/components/Hero.tsx` — Mobile CTA layout tweaks
-- `src/components/Portfolio.tsx` — Scrollable filter pills on mobile
-- `src/components/Stats.tsx` — Mobile divider adjustments
-- `src/components/CTAFooter.tsx` — Footer mobile layout fixes
+9. **`CaseStudiesCarousel.tsx`** — Dark bg, Embla carousel. Each slide: image left, details right (label, client name, description, 3 big metrics, CTA button). Dots + arrows.
+
+10. **`RelatedServices.tsx`** — Light bg, two large image cards side by side linking to Brand Identity and SEO.
+
+11. **`ContactCTA.tsx`** — Dark bg, two-column. Left: bold headline + contact info (phone, email, socials in gold). Right: contact form with dark-styled inputs (name, email, phone, website, service checkboxes, message textarea, submit button).
+
+## Route Addition
+Add `<Route path="/services/websites" element={<BespokeWebsites />} />` in `App.tsx`.
+
+## Shared Components
+- Reuse `Navbar`, `CTAFooter` (footer portion), `SectionLabel`, `useScrollAnimation`
+- Embla Carousel (already installed) for PhilosophyCarousel, JournalFeed, CaseStudiesCarousel
+- All scroll animations use existing `useScrollAnimation` hook
+
+## Responsive
+- Two-column layouts stack on mobile (`grid-cols-1 lg:grid-cols-2`)
+- Carousels become touch-swipeable via Embla
+- Full-bleed showcase scales down naturally
+- Contact form fields stack on mobile
+- Bold statement headlines use `clamp()` for sizing
 
