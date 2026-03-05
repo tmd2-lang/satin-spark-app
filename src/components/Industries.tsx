@@ -1,7 +1,7 @@
-import { useRef } from "react";
 import SectionLabel from "./SectionLabel";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ArrowRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const industries = [
   { name: "Med Spas", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
@@ -13,8 +13,8 @@ const industries = [
 ];
 
 const Industries = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const { ref, isVisible } = useScrollAnimation();
+  const [emblaRef] = useEmblaCarousel({ dragFree: true, containScroll: "trimSnaps", align: "start" });
 
   return (
     <section id="industries" ref={ref} className="bg-swann-light py-24 overflow-hidden">
@@ -34,32 +34,30 @@ const Industries = () => {
         </div>
       </div>
 
-      {/* Carousel */}
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto px-6 pb-4 scroll-smooth snap-x snap-mandatory"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {industries.map((industry) => (
-          <div
-            key={industry.name}
-            className="flex-none w-[350px] md:w-[380px] h-[480px] rounded-xl overflow-hidden relative group cursor-pointer snap-start"
-          >
-            <img
-              src={industry.image}
-              alt={industry.name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/50" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
-              <span className="font-headline text-[20px] font-bold text-white">
-                {industry.name}
-              </span>
-              <ArrowRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+      {/* Embla Carousel */}
+      <div className="overflow-hidden px-6" ref={emblaRef}>
+        <div className="flex gap-5">
+          {industries.map((industry) => (
+            <div
+              key={industry.name}
+              className="flex-none w-[280px] md:w-[380px] h-[400px] md:h-[480px] rounded-xl overflow-hidden relative group cursor-pointer"
+            >
+              <img
+                src={industry.image}
+                alt={industry.name}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/50" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+                <span className="font-headline text-[18px] md:text-[20px] font-bold text-white">
+                  {industry.name}
+                </span>
+                <ArrowRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

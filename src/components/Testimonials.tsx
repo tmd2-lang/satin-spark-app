@@ -1,5 +1,6 @@
 import SectionLabel from "./SectionLabel";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import useEmblaCarousel from "embla-carousel-react";
 
 const testimonials = [
   {
@@ -30,6 +31,7 @@ const testimonials = [
 
 const Testimonials = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const [emblaRef] = useEmblaCarousel({ dragFree: true, containScroll: "trimSnaps", align: "start" });
 
   return (
     <section ref={ref} className="bg-swann-light py-24 overflow-hidden">
@@ -46,27 +48,26 @@ const Testimonials = () => {
         </div>
       </div>
 
-      <div
-        className="flex gap-6 overflow-x-auto px-6 pb-4"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {testimonials.map((t) => (
-          <div
-            key={t.name}
-            className="flex-none w-[380px] bg-white border border-[#111114]/[0.06] rounded-xl p-8"
-          >
-            <p className="font-body text-[16px] text-[#111114] leading-relaxed mb-6">
-              "{t.quote}"
-            </p>
-            <div className="w-10 h-px bg-swann-gold mb-4" />
-            <p className="font-body text-[14px] font-medium text-[#111114]">
-              {t.name}
-            </p>
-            <p className="font-body text-[13px] text-swann-text-dim">
-              {t.practice} · {t.location}
-            </p>
-          </div>
-        ))}
+      <div className="overflow-hidden px-6" ref={emblaRef}>
+        <div className="flex gap-6">
+          {testimonials.map((t) => (
+            <div
+              key={t.name}
+              className="flex-none w-[300px] md:w-[380px] bg-white border border-[#111114]/[0.06] rounded-xl p-6 md:p-8"
+            >
+              <p className="font-body text-[15px] md:text-[16px] text-[#111114] leading-relaxed mb-6">
+                "{t.quote}"
+              </p>
+              <div className="w-10 h-px bg-swann-gold mb-4" />
+              <p className="font-body text-[14px] font-medium text-[#111114]">
+                {t.name}
+              </p>
+              <p className="font-body text-[13px] text-swann-text-dim">
+                {t.practice} · {t.location}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

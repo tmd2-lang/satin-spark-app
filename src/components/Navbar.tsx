@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = ["Industries", "Services", "Portfolio", "About", "Journal"];
 
@@ -12,6 +13,12 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
   return (
     <nav
@@ -63,27 +70,37 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-[#09090B]/95 backdrop-blur-[20px] border-t border-white/[0.06] px-6 py-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="font-body text-[15px] text-white/70 hover:text-white transition-colors"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            className="font-body text-[13px] font-medium bg-white text-[#09090B] px-5 py-2.5 rounded-md text-center mt-2 hover:bg-swann-gold transition-colors"
-            onClick={() => setMobileOpen(false)}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden overflow-hidden bg-[#09090B]/95 backdrop-blur-[20px] border-t border-white/[0.06]"
           >
-            Book a Consultation
-          </a>
-        </div>
-      )}
+            <div className="px-6 py-6 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  className="font-body text-[15px] text-white/70 hover:text-white transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                className="font-body text-[13px] font-medium bg-white text-[#09090B] px-5 py-2.5 rounded-md text-center mt-2 hover:bg-swann-gold transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                Book a Consultation
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
