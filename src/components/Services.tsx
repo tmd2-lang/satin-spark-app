@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import SectionLabel from "./SectionLabel";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import designTabImage from "@/assets/design-tab.png";
-import presenceTabImage from "@/assets/presence-tab.jpg";
+import designTabImage from "@/assets/design-tab.jpg";
+import presenceTabImage from "@/assets/presence-tab-opt.jpg";
 
 const tabs = [
   {
