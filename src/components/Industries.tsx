@@ -1,7 +1,8 @@
 import SectionLabel from "./SectionLabel";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const industries = [
   { name: "Med Spas", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
@@ -12,35 +13,64 @@ const industries = [
   { name: "Multi-Location", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" },
 ];
 
+const headerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const headerChild = {
+  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: 60, rotateY: 8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    rotateY: 0,
+    transition: { delay: 0.4 + i * 0.1, duration: 0.7, ease },
+  }),
+};
+
 const Industries = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const [emblaRef] = useEmblaCarousel({ dragFree: true, containScroll: "trimSnaps", align: "start" });
 
   return (
-    <section id="industries" ref={ref} className="bg-swann-light py-24 overflow-hidden">
-      <div className="max-w-[1320px] mx-auto px-6 mb-12">
-        <div
-          className={`transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
+    <section id="industries" ref={sectionRef} className="bg-swann-light py-24 overflow-hidden">
+      <motion.div
+        className="max-w-[1320px] mx-auto px-6 mb-12"
+        variants={headerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        <motion.div variants={headerChild}>
           <SectionLabel label="Industries" />
-          <h2 className="font-headline text-[clamp(28px,3.5vw,42px)] font-bold text-[#111114] tracking-[-0.02em] mb-2">
-            Built for the aesthetics industry.
-          </h2>
-          <p className="font-body text-[16px] text-swann-text-dim">
-            Every vertical. Every complexity.
-          </p>
-        </div>
-      </div>
+        </motion.div>
+        <motion.h2 variants={headerChild} className="font-headline text-[clamp(28px,3.5vw,42px)] font-bold text-foreground tracking-[-0.02em] mb-2">
+          Built for the aesthetics industry.
+        </motion.h2>
+        <motion.p variants={headerChild} className="font-body text-[16px] text-swann-text-dim">
+          Every vertical. Every complexity.
+        </motion.p>
+      </motion.div>
 
-      {/* Embla Carousel */}
       <div className="overflow-hidden px-6" ref={emblaRef}>
-        <div className="flex gap-5">
-          {industries.map((industry) => (
-            <div
+        <div className="flex gap-5" style={{ perspective: "1200px" }}>
+          {industries.map((industry, i) => (
+            <motion.div
               key={industry.name}
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
               className="flex-none w-[280px] md:w-[380px] h-[400px] md:h-[480px] rounded-xl overflow-hidden relative group cursor-pointer"
+              whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+              transition={{ duration: 0.3 }}
             >
               <img
                 src={industry.image}
@@ -55,7 +85,7 @@ const Industries = () => {
                 </span>
                 <ArrowRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

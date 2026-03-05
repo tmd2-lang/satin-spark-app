@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import BookConsultationButton from "./BookConsultationButton";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const footerLinks = {
   Company: [
@@ -25,39 +26,89 @@ const footerLinks = {
   ],
 };
 
+const headlineWords = "When you're ready for what's next.".split(" ");
+
+const footerColVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const footerColChild = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
+
 const CTAFooter = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+  const ctaInView = useInView(ctaRef, { once: true, amount: 0.4 });
+  const footerInView = useInView(footerRef, { once: true, amount: 0.2 });
 
   return (
-    <section id="contact" ref={ref} className="bg-swann-dark">
+    <section id="contact" className="bg-swann-dark">
       {/* CTA */}
-      <div className="relative py-32 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,_rgba(201,169,110,0.08)_0%,_transparent_70%)]" />
-        <div
-          className={`relative z-10 max-w-[1320px] mx-auto px-6 text-center transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <h2 className="font-headline text-[clamp(28px,3.5vw,44px)] font-bold text-white tracking-[-0.02em] mb-4">
-            When you're ready for what's next.
+      <div ref={ctaRef} className="relative py-32 overflow-hidden">
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,_rgba(201,169,110,0.08)_0%,_transparent_70%)]"
+          animate={ctaInView ? {
+            scale: [1, 1.1, 1],
+            opacity: [0.8, 1, 0.8],
+          } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <div className="relative z-10 max-w-[1320px] mx-auto px-6 text-center">
+          <h2 className="font-headline text-[clamp(28px,3.5vw,44px)] font-bold text-white tracking-[-0.02em] mb-4 flex flex-wrap justify-center gap-x-[0.3em]">
+            {headlineWords.map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [...ease] }}
+              >
+                {word}
+              </motion.span>
+            ))}
           </h2>
-          <p className="font-body text-[16px] font-light text-swann-text-dim mb-10 max-w-[440px] mx-auto">
-            It starts with a conversation. Then a strategy. Then results.
-          </p>
-          <BookConsultationButton
-            className="inline-flex font-body text-[15px] font-medium bg-white text-[#09090B] px-10 py-4 rounded-lg hover:bg-swann-gold hover:shadow-[0_8px_30px_rgba(201,169,110,0.3)] hover:-translate-y-0.5 transition-all duration-300"
+          <motion.p
+            className="font-body text-[16px] font-light text-swann-text-dim mb-10 max-w-[440px] mx-auto"
+            initial={{ opacity: 0, y: 12 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.6, duration: 0.5 }}
           >
-            Book a Consultation →
-          </BookConsultationButton>
+            It starts with a conversation. Then a strategy. Then results.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={ctaInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.8, type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <motion.div
+              animate={ctaInView ? { scale: [1, 1.02, 1] } : {}}
+              transition={{ delay: 2, duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <BookConsultationButton
+                className="inline-flex font-body text-[15px] font-medium bg-white text-[#09090B] px-10 py-4 rounded-lg hover:bg-swann-gold hover:shadow-[0_8px_30px_rgba(201,169,110,0.3)] hover:-translate-y-0.5 transition-all duration-300"
+              >
+                Book a Consultation →
+              </BookConsultationButton>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.06]">
+      <footer ref={footerRef} className="border-t border-white/[0.06]">
         <div className="max-w-[1320px] mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-5 gap-12"
+            variants={footerColVariants}
+            initial="hidden"
+            animate={footerInView ? "visible" : "hidden"}
+          >
             {/* Logo col */}
-            <div className="md:col-span-2">
+            <motion.div variants={footerColChild} className="md:col-span-2">
               <Link to="/" className="flex items-baseline gap-1.5 mb-3">
                 <span className="font-headline text-[18px] font-bold text-white">SWANN</span>
                 <span className="font-body text-[10px] font-light uppercase tracking-[0.15em] text-white/50">
@@ -67,11 +118,11 @@ const CTAFooter = () => {
               <p className="font-body text-[13px] text-swann-text-dim max-w-[280px]">
                 The technology is invisible — the taste is not.
               </p>
-            </div>
+            </motion.div>
 
             {/* Link columns */}
             {Object.entries(footerLinks).map(([title, links]) => (
-              <div key={title}>
+              <motion.div key={title} variants={footerColChild}>
                 <p className="font-body text-[12px] uppercase tracking-[0.1em] text-white/40 mb-4">
                   {title}
                 </p>
@@ -96,9 +147,9 @@ const CTAFooter = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom bar */}
