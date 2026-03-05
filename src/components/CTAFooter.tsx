@@ -76,7 +76,7 @@ const CTAFooter = () => {
 
         {/* Bottom bar */}
         <div className="border-t border-white/[0.06]">
-          <div className="max-w-[1320px] mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="max-w-[1320px] mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <p className="font-body text-[12px] text-swann-text-dim">
               © 2026 Swann Company. All rights reserved.
             </p>

@@ -23,7 +23,7 @@ const Stats = () => {
               key={stat.label}
               className={`text-center py-8 ${
                 i < stats.length - 1 ? "md:border-r md:border-white/[0.08]" : ""
-              }`}
+              } ${i >= 2 ? "border-t border-white/[0.06] md:border-t-0" : ""}`}
             >
               <p className="font-headline text-[36px] font-bold text-white mb-2">
                 {stat.value}

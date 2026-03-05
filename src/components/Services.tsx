@@ -106,12 +106,12 @@ const Services = () => {
           </div>
 
           {/* Tab bar */}
-          <div className="flex border-t border-white/[0.08]">
+          <div className="flex overflow-x-auto border-t border-white/[0.08]" style={{ scrollbarWidth: "none" }}>
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-4 font-body text-[14px] font-medium transition-all duration-200 relative ${
+                className={`flex-1 min-w-[100px] py-4 font-body text-[12px] md:text-[14px] font-medium transition-all duration-200 relative whitespace-nowrap ${
                   activeTab === tab.id
                     ? "text-white"
                     : "text-white/40 hover:text-white/70"

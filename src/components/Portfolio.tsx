@@ -87,12 +87,12 @@ const Portfolio = () => {
           </div>
 
           {/* Filter pills */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap" style={{ scrollbarWidth: "none" }}>
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
-                className={`font-body text-[13px] px-4 py-2 rounded-full border transition-all duration-200 ${
+                className={`flex-none whitespace-nowrap font-body text-[13px] px-4 py-2 rounded-full border transition-all duration-200 ${
                   activeFilter === f
                     ? "bg-[#111114] text-white border-[#111114]"
                     : "bg-transparent text-swann-text-dim border-[#111114]/10 hover:border-[#111114]/30"
