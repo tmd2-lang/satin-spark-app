@@ -1,32 +1,44 @@
 
 
-# Fix: Mobile Tab/Filter Cutoff in Services & Portfolio
+# Contact Page — `/contact`
 
-## Problem
-Both sections have horizontally scrollable elements on mobile, but they get visually clipped — likely by the parent's `overflow-x-hidden` on the page wrapper or insufficient bottom padding, making the last items hard to reach/tap.
+## Overview
+Create a dedicated full-page contact page with a premium dark aesthetic. Two-column layout: bold statement left, comprehensive form right. Reuse the existing `ContactCTA` pattern but expand it into a standalone page with additional form fields (industry dropdown, more service options, consent text).
 
-## Services Tab Bar (line 109)
-The tab bar uses `overflow-x-auto` with hidden scrollbar but sits inside a parent with no bottom padding buffer. On mobile the bottom edge of the tabs (and the gold underline indicator) gets clipped.
+## New Files
 
-**Fix:** Add `pb-2` to the tab bar container so the active indicator and tap targets aren't cut off. Also add `-mx-6 px-6` to give the scroll area full-bleed on mobile (same pattern Portfolio already uses).
+### `src/pages/Contact.tsx`
+- Full dark bg (`#09090B`), min-h-screen, includes `Navbar` + `CTAFooter` (footer only, no CTA block)
+- Two-column grid (`lg:grid-cols-[2fr_3fr]`), stacks on mobile
+- **Left column**: `SectionLabel` ("Contact"), large Syne headline "WHEN YOU'RE READY FOR WHAT'S NEXT", contact info (phone, email, follow us with social links)
+- **Right column**: Subheadline, then the form:
+  - Row 1: First Name, Last Name, Business Name (3-col grid)
+  - Row 2: Email, Phone, Website URL (3-col grid)
+  - Row 3: Industry dropdown (native select styled dark) — Med Spa, Plastic Surgery, Aesthetician, Luxury Spa, Dermatology, Multi-Location, Other
+  - Row 4: Services toggle pills (same pattern as `ContactCTA`) — Bespoke Websites, Brand Identity, SEO, Digital Advertising, Social Media, Email Marketing, Compliance, Other
+  - Row 5: Message textarea
+  - Row 6: Consent text
+  - Submit: "Send Message" — full-width, white bg, hover gold
+- Input styling: `bg-white/[0.06] border border-white/10` with `focus:border-swann-gold/50`
+- Labels above each field: `font-body text-[12px] uppercase tracking-[0.1em] text-white/40`
 
-## Portfolio Filter Pills (line 90)
-The filter pills row already has `overflow-x-auto` and `-mx-6 px-6` for mobile scroll, plus `pb-2`. But with 6 pills ("All", "Med Spas", "Plastic Surgery", "Aestheticians", "Spas", "Dermatology"), the rightmost pills may be clipped by the page-level `overflow-x-hidden` on the `<div>` wrapper in `Index.tsx`.
+## Changes to Existing Files
 
-**Fix:** Increase bottom padding on the pills row to `pb-4` to ensure tap targets aren't clipped, and add `pr-6` after the last pill as scroll padding so the final item is fully visible when scrolled to the end. Also add `scroll-padding` via style for smooth snapping.
+### `src/App.tsx`
+- Import `Contact` page, add route `<Route path="/contact" element={<Contact />} />`
 
-## Page-Level Overflow (Index.tsx)
-The root wrapper has `overflow-x-hidden` which can clip elements that extend to edges. This is fine for preventing horizontal scroll but can interact badly with scrollable sub-containers.
+### `src/components/Navbar.tsx`
+- Update "Book a Consultation" CTA links (desktop + mobile) to point to `/contact` instead of `/#contact`
 
-**No change needed here** — the fixes above keep content within bounds while ensuring full visibility.
+### `src/components/CTAFooter.tsx`
+- Update "Book a Consultation" button href to `/contact`
+- Update footer "Contact" link to point to `/contact`
 
-## Changes
+### `src/components/Navbar.tsx` (lightHeroPages)
+- No change needed — contact page is dark bg, so navbar stays white text
 
-**`src/components/Services.tsx`** — Tab bar container:
-- Add `pb-2 -mx-6 px-6 md:mx-0 md:px-0` to match Portfolio's mobile scroll pattern
-- Ensures tabs are fully tappable and the gold indicator isn't clipped
-
-**`src/components/Portfolio.tsx`** — Filter pills:
-- Change `pb-2` to `pb-4` for more breathing room
-- Add `after:content-[''] after:flex-none after:w-6` or simply ensure right padding is sufficient for the last pill to scroll fully into view
+## Technical Notes
+- Form is client-side only (no backend) — `onSubmit` prevents default, could add toast confirmation
+- The page uses the site's existing footer via `CTAFooter` but the contact page itself IS the CTA, so we'll render just the footer portion or the full `CTAFooter` at the bottom
+- Mobile: left column stacks above form, form fields go single-column on small screens
 
