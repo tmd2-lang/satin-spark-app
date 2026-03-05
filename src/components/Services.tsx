@@ -41,12 +41,12 @@ const tabs = [
   },
 ];
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
 const headerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.15 } },
 };
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const headerChild = {
   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
@@ -63,31 +63,33 @@ const tabChild = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 
+const contentVariants = {
+  enter: (dir: number) => ({ x: dir * 40, opacity: 0 }),
+  center: { x: 0, opacity: 1, transition: { duration: 0.45, ease } },
+  exit: (dir: number) => ({ x: dir * -40, opacity: 0, transition: { duration: 0.3 } }),
+};
+
 const pillVariants = {
   hidden: { scale: 0.8, opacity: 0 },
   visible: (i: number) => ({
     scale: 1,
     opacity: 1,
-    transition: { delay: i * 0.1 + 0.1, type: "spring" as const, stiffness: 400, damping: 20 },
+    transition: { delay: i * 0.1 + 0.2, type: "spring" as const, stiffness: 400, damping: 20 },
   }),
-};
-
-// Text child items stagger
-const textChildVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState("design");
+  const [direction, setDirection] = useState(0);
   const active = tabs.find((t) => t.id === activeTab)!;
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const handleTabChange = (tabId: string) => {
-    if (tabId !== activeTab) {
-      setActiveTab(tabId);
-    }
+    const oldIdx = tabs.findIndex((t) => t.id === activeTab);
+    const newIdx = tabs.findIndex((t) => t.id === tabId);
+    setDirection(newIdx > oldIdx ? 1 : -1);
+    setActiveTab(tabId);
   };
 
   return (
@@ -119,127 +121,55 @@ const Services = () => {
           </div>
         </motion.div>
 
-        {/* Cinematic image reveal — desktop: full-width image slides to 50%, revealing text */}
-        <div className="relative mb-12 min-h-[400px] lg:min-h-[450px]">
-          <AnimatePresence mode="wait">
+        {/* Two column content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
-              key={active.id}
-              className="relative w-full"
-              initial="hidden"
-              animate="visible"
+              key={active.id + "-img"}
+              custom={direction}
+              variants={contentVariants}
+              initial="enter"
+              animate="center"
               exit="exit"
+              className="relative aspect-[4/3] rounded-lg overflow-hidden"
             >
-              {/* Mobile: stacked layout with simple fade */}
-              <div className="block lg:hidden">
-                <motion.div
-                  className="relative aspect-[4/3] rounded-lg overflow-hidden mb-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { duration: 0.4, ease } }}
-                  exit={{ opacity: 0, transition: { duration: 0.25 } }}
-                >
-                  <img
-                    src={active.image}
-                    alt={active.headline}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-                <motion.div
-                  className="flex flex-col justify-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.2, ease } }}
-                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                >
-                  <h3 className="font-headline text-[28px] font-bold text-white mb-4 tracking-[-0.02em]">
-                    {active.headline}
-                  </h3>
-                  <p className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-8 max-w-[440px]">
-                    {active.description}
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {active.pills.map((pill, i) => (
-                      <motion.span
-                        key={pill}
-                        custom={i}
-                        variants={pillVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="font-body text-[13px] px-4 py-2 rounded-full border border-white/[0.1] text-white/70"
-                      >
-                        {pill}
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
+              <img
+                src={active.image}
+                alt={active.headline}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
 
-              {/* Desktop: cinematic reveal */}
-              <div className="hidden lg:block relative" style={{ minHeight: "450px" }}>
-                {/* Text content — positioned in the right half, revealed as image slides */}
-                <motion.div
-                  className="absolute right-0 top-0 w-1/2 h-full flex items-center"
-                  variants={{
-                    hidden: { opacity: 0 },
-                    visible: {
-                      opacity: 1,
-                      transition: { delay: 0.9, duration: 0.4, ease, staggerChildren: 0.1, delayChildren: 0.9 },
-                    },
-                    exit: { opacity: 0, transition: { duration: 0.2 } },
-                  }}
-                >
-                  <div className="pl-12">
-                    <motion.h3
-                      variants={textChildVariants}
-                      className="font-headline text-[28px] font-bold text-white mb-4 tracking-[-0.02em]"
-                    >
-                      {active.headline}
-                    </motion.h3>
-                    <motion.p
-                      variants={textChildVariants}
-                      className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-8 max-w-[440px]"
-                    >
-                      {active.description}
-                    </motion.p>
-                    <motion.div variants={textChildVariants} className="flex flex-wrap gap-3">
-                      {active.pills.map((pill, i) => (
-                        <motion.span
-                          key={pill}
-                          custom={i}
-                          variants={pillVariants}
-                          initial="hidden"
-                          animate="visible"
-                          className="font-body text-[13px] px-4 py-2 rounded-full border border-white/[0.1] text-white/70"
-                        >
-                          {pill}
-                        </motion.span>
-                      ))}
-                    </motion.div>
-                  </div>
-                </motion.div>
-
-                {/* Image — starts full width, slides to 50% */}
-                <motion.div
-                  className="absolute left-0 top-0 h-full rounded-lg overflow-hidden"
-                  style={{ zIndex: 2 }}
-                  variants={{
-                    hidden: { width: "100%", opacity: 0 },
-                    visible: {
-                      width: "48%",
-                      opacity: 1,
-                      transition: {
-                        opacity: { duration: 0.3, ease },
-                        width: { delay: 0.4, duration: 0.6, ease },
-                      },
-                    },
-                    exit: { opacity: 0, transition: { duration: 0.25 } },
-                  }}
-                >
-                  <img
-                    src={active.image}
-                    alt={active.headline}
-                    className="w-full h-full object-cover"
-                    style={{ minHeight: "450px" }}
-                  />
-                </motion.div>
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={active.id + "-content"}
+              custom={direction}
+              variants={contentVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="flex flex-col justify-center"
+            >
+              <h3 className="font-headline text-[28px] font-bold text-white mb-4 tracking-[-0.02em]">
+                {active.headline}
+              </h3>
+              <p className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-8 max-w-[440px]">
+                {active.description}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {active.pills.map((pill, i) => (
+                  <motion.span
+                    key={pill}
+                    custom={i}
+                    variants={pillVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="font-body text-[13px] px-4 py-2 rounded-full border border-white/[0.1] text-white/70"
+                  >
+                    {pill}
+                  </motion.span>
+                ))}
               </div>
             </motion.div>
           </AnimatePresence>
