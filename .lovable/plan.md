@@ -1,66 +1,48 @@
 
 
-# Animation Upgrade — Homepage & Site-Wide Sections
+# Services Section — Cinematic Image Reveal Animation
 
-## The Problem
-Right now, every section outside the Hero and Contact page uses the exact same animation: a simple CSS `opacity-0 translate-y-8 → opacity-100 translate-y-0` triggered by `useScrollAnimation`. It's functional but flat — everything fades up identically, no staggering, no variety, no personality. For a site selling premium digital experiences, the animations should *demonstrate* that capability.
+## The Concept
+When a tab is selected, the image starts spanning the full width of the content area (both columns), then after a brief pause it slides left to its 50% column position, revealing the text content underneath. This creates a dramatic "curtain pull" effect.
 
-## The Approach
-Replace the generic CSS transitions with `framer-motion` orchestrated animations across all homepage sections. Each section gets a distinct animation treatment that suits its content type, while maintaining a cohesive feel.
+## How It Works
 
-## Section-by-Section Plan
+**Layout change:** Instead of two separate `AnimatePresence` blocks for image and content, combine them into a single container. The image is absolutely positioned over the full width initially, then animates its width from `100%` to `50%` (or its `right` edge slides left), revealing the text column beneath it.
 
-### Industries (carousel cards)
-- Header text: staggered fade-up (label → headline → subtext)
-- Carousel cards: stagger in from the right with a slight rotation (`rotateY: 8deg → 0`), each card delayed 0.1s — gives a "dealing cards" feel
-- On hover: subtle lift + shadow expansion (already has scale, add shadow)
+**Animation sequence on tab change:**
+1. Old content fades out (0.25s)
+2. New image enters at full width covering both columns (opacity 0 → 1, 0.3s)
+3. After a 0.4s hold, image slides left — animating from `width: 100%` to `width: 50%` (0.6s, smooth ease)
+4. As the image slides, the text content fades up into the revealed space (staggered: headline → description → pills)
 
-### Services (tabbed content)
-- Header: staggered cascade like Industries
-- Tab bar buttons: stagger in from bottom
-- When switching tabs: use `AnimatePresence` with `mode="wait"` so the image and content cross-fade with a subtle directional slide (left tab → slide left, right tab → slide right)
-- Service pills: pop in with scale spring
+**On initial load (first view):** Same sequence plays once the section scrolls into view.
 
-### Portfolio (project grid)
-- Header: staggered cascade
-- Project cards: stagger in with a masonry-like feel — each card fades up with increasing delays (0.1, 0.2, 0.3)
-- Filter pills: when switching filters, cards exit with scale-down + fade, new cards enter with scale-up + fade using `AnimatePresence` + `layout` for smooth reflow
+**On mobile (single column):** Skip the full-width reveal — just use the existing fade transition since there's no two-column layout to play with.
 
-### Stats (number counters)
-- Each stat staggers in from bottom (0.15s delay between each)
-- The stat values get a counting-up animation — numbers animate from 0 to their final value over 1.5s using `useMotionValue` + `useTransform` + `animate` from framer-motion
-- The gold dividers between stats draw in with a width animation
+## Technical Implementation
 
-### Testimonials (carousel cards)
-- Header: staggered cascade
-- Cards: stagger in from below with slight rotation (`rotate: 2deg → 0`) and increasing delays — gives a "fanned out" entrance
+**`src/components/Services.tsx`:**
+- Replace the two-column grid + separate `AnimatePresence` blocks with a single relative container
+- Image wrapper uses `motion.div` animating `width` from `"100%"` to `"50%"` with a delay
+- Text content sits in the right half, fades in after the image slides with `staggerChildren`
+- Use a `key` on the wrapper tied to `active.id` so `AnimatePresence` re-triggers on tab change
+- On mobile (`lg:` breakpoint), fall back to sequential layout without the full-width reveal — use a CSS media query or conditional animation variants
 
-### Journal (article cards)
-- Header: staggered cascade
-- Cards: one slides in from left, the other from right, meeting in the middle
-- Category labels: fade in with a gold underline that draws from left to right
+**Variant structure:**
+```
+imageReveal: {
+  initial: { width: "100%" }
+  animate: { width: "50%", transition: { delay: 0.4, duration: 0.6, ease } }
+  exit: { opacity: 0, transition: { duration: 0.25 } }
+}
 
-### CTAFooter (CTA block + footer)
-- The radial gold gradient pulses subtly on loop (scale 1 → 1.1 → 1, opacity cycle)
-- Headline words stagger in one by one
-- CTA button: scales in with overshoot spring, then has a subtle idle "breathe" animation (scale 1 → 1.02 → 1 on loop)
-- Footer link columns: stagger in from bottom
-
-## Technical Approach
-- All sections switch from `useScrollAnimation` + CSS transitions to `framer-motion`'s `useInView` + `motion.div` with `variants`
-- Stats counter uses `useMotionValue`, `useTransform`, and `animate` from framer-motion — no new dependencies
-- Tab switching in Services uses `AnimatePresence mode="wait"` with directional variants
-- Portfolio filter uses `AnimatePresence` + `layout` prop for smooth card reflow
-- The `useScrollAnimation` hook can remain for any subpages still using it
+textReveal: {
+  initial: { opacity: 0 }  
+  animate: { opacity: 1, transition: { delay: 0.8, staggerChildren: 0.1 } }
+  exit: { opacity: 0 }
+}
+```
 
 ## Files Changed
-- `src/components/Industries.tsx`
-- `src/components/Services.tsx`
-- `src/components/Portfolio.tsx`
-- `src/components/Stats.tsx`
-- `src/components/Testimonials.tsx`
-- `src/components/Journal.tsx`
-- `src/components/CTAFooter.tsx`
-
-No new dependencies — everything uses the existing `framer-motion` package.
+- `src/components/Services.tsx` — Restructure layout and replace animation logic
 
