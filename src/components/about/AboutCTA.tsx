@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import BookConsultationButton from "@/components/BookConsultationButton";
 
 const AboutCTA = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -18,12 +19,11 @@ const AboutCTA = () => {
         <p className="font-body text-[16px] font-light text-swann-text-dim mb-10">
           It starts with a conversation. Then a strategy. Then results.
         </p>
-        <a
-          href="#"
+        <BookConsultationButton
           className="inline-flex font-body text-[14px] font-medium bg-white text-swann-dark px-8 py-3.5 rounded-md hover:bg-swann-gold hover:shadow-[0_8px_30px_rgba(201,169,110,0.3)] transition-all duration-300"
         >
           Book a Consultation →
-        </a>
+        </BookConsultationButton>
       </div>
     </section>
   );
