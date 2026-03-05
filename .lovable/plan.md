@@ -1,40 +1,45 @@
 
 
-# Mobile Bottom Sheet for "Book a Consultation" CTAs
+# Entrance Animations + Success Feedback — Contact Page & Mobile Sheet
 
-## What
-On mobile only, all "Book a Consultation" buttons across the site open a slide-up bottom sheet modal with a simplified contact form instead of navigating to `/contact`. Desktop behavior stays unchanged.
+## Contact Page (`src/pages/Contact.tsx`)
 
-## New File: `src/components/MobileContactSheet.tsx`
-A reusable bottom sheet component using `framer-motion`:
-- Dark overlay (`bg-black/60`) with tap-to-dismiss
-- Sheet slides up from bottom with `framer-motion` (`y: "100%" → y: 0`)
-- Rounded top corners, dark bg (`#111114`), drag-to-dismiss handle bar
-- Simplified form: Name, Email, Phone, Business Name fields (same dark input styling as `/contact` page)
-- "Send Message" submit button (white bg, hover gold)
-- Uses `AnimatePresence` for enter/exit
+Replace the basic `useScrollAnimation` fade with rich `framer-motion` orchestrated animations:
 
-## New File: `src/components/BookConsultationButton.tsx`
-A wrapper component that:
-- Accepts `children`, `className`, and renders either a `<Link to="/contact">` (desktop) or a `<button>` that opens the sheet (mobile)
-- Uses the existing `useIsMobile()` hook from `src/hooks/use-mobile.tsx`
-- Manages open/closed state for the sheet
-- Renders `MobileContactSheet` via portal when open
+**Left column — staggered cascade:**
+- Section label slides in from left with blur dissolve (delay 0)
+- Each headline line ("When You're", "Ready for", "What's Next") staggers in one-by-one from left with spring physics (delays 0.15, 0.3, 0.45)
+- Contact info blocks (Call, Email, Follow) fade up with stagger (delays 0.7, 0.85, 1.0)
 
-## Changes to Existing Files
+**Right column — form entrance:**
+- Subheadline fades in (delay 0.3)
+- Each form row cascades in from bottom with stagger (delays 0.4, 0.55, 0.7, 0.85, 1.0, 1.1)
+- Submit button scales in with a slight overshoot spring (delay 1.2)
 
-### `src/components/Navbar.tsx`
-Replace both desktop and mobile "Book a Consultation" `<Link>` elements with `<BookConsultationButton>`. The component handles the desktop/mobile logic internally.
+**Service pills** get a pop-in micro-animation on toggle — `scale: [1, 1.15, 1]` with gold glow pulse when selected.
 
-### `src/components/CTAFooter.tsx` (line 46-51)
-Replace the `<Link to="/contact">` with `<BookConsultationButton>`.
+**Success state:** On submit, the entire form fades out and is replaced by a success view:
+- Large animated checkmark (SVG circle + check drawn with `motion.path` `pathLength` animation)
+- "We'll be in touch" headline with fade-up
+- "Expect to hear from us within 24 hours" subtext
+- "Send another message" link to reset the form
 
-### `src/components/about/AboutCTA.tsx` (line 21-26)
-Replace the `<a href="#">` with `<BookConsultationButton>`.
+## Mobile Bottom Sheet (`src/components/MobileContactSheet.tsx`)
 
-## Technical Notes
-- `useIsMobile()` uses `768px` breakpoint — matches the site's existing `md:` responsive breakpoint
-- Form is client-side only (matches current `/contact` behavior)
-- Bottom sheet gets `z-[60]` to sit above navbar (`z-50`)
-- Drag-to-dismiss: `framer-motion` `drag="y"` with `dragConstraints` and `onDragEnd` threshold
+**Form field stagger:** Each field slides up with 0.08s stagger delay after the sheet opens.
+
+**Success state:** Same concept — after submit, form morphs into a checkmark + confirmation message with a satisfying spring animation. Auto-closes after 2.5 seconds.
+
+**Submit button:** Add a brief loading shimmer (0.5s) before showing success to feel real.
+
+## Technical Approach
+- Use `framer-motion`'s `motion.div`, `variants`, `staggerChildren`, and `AnimatePresence` for all orchestration
+- Animated checkmark uses `motion.circle` + `motion.path` with `pathLength` from 0 to 1
+- Success state managed via `useState<"form" | "success">`
+- Contact page uses `useInView` from framer-motion instead of the custom `useScrollAnimation` hook
+- No new dependencies needed — everything uses existing `framer-motion`
+
+## Files Changed
+- **`src/pages/Contact.tsx`** — Full rewrite with motion components, staggered entrance, success state
+- **`src/components/MobileContactSheet.tsx`** — Add field stagger, submit shimmer, success state with auto-close
 
