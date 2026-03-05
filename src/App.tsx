@@ -8,6 +8,7 @@ import BespokeWebsites from "./pages/BespokeWebsites";
 import About from "./pages/About";
 import SEOPage from "./pages/SEOPage";
 import BrandIdentityPage from "./pages/BrandIdentityPage";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import CustomCursor from "./components/CustomCursor";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/services/seo" element={<SEOPage />} />
           <Route path="/services/brand-identity" element={<BrandIdentityPage />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

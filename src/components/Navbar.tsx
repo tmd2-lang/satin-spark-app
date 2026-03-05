@@ -160,7 +160,7 @@ const Navbar = () => {
 
         {/* CTA */}
         <Link
-          to="/#contact"
+          to="/contact"
           className={`hidden md:inline-flex font-body text-[13px] font-medium px-5 py-2.5 rounded-md transition-colors duration-200 ${
             !scrolled && isLightHero
               ? "bg-[#111114] text-white hover:bg-swann-gold hover:text-[#09090B]"
@@ -267,7 +267,7 @@ const Navbar = () => {
                 className="mt-12"
               >
                 <Link
-                  to="/#contact"
+                  to="/contact"
                   onClick={() => setMobileOpen(false)}
                   className="block font-body text-[15px] font-medium bg-white text-[#09090B] px-6 py-4 rounded-lg text-center hover:bg-swann-gold transition-colors"
                 >
