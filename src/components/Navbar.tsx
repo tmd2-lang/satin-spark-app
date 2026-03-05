@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import BookConsultationButton from "./BookConsultationButton";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -159,8 +160,7 @@ const Navbar = () => {
         </div>
 
         {/* CTA */}
-        <Link
-          to="/contact"
+        <BookConsultationButton
           className={`hidden md:inline-flex font-body text-[13px] font-medium px-5 py-2.5 rounded-md transition-colors duration-200 ${
             !scrolled && isLightHero
               ? "bg-[#111114] text-white hover:bg-swann-gold hover:text-[#09090B]"
@@ -168,7 +168,7 @@ const Navbar = () => {
           }`}
         >
           Book a Consultation
-        </Link>
+        </BookConsultationButton>
 
         {/* Mobile toggle */}
         <button
@@ -266,13 +266,12 @@ const Navbar = () => {
                 transition={{ delay: 0.4, duration: 0.4 }}
                 className="mt-12"
               >
-                <Link
-                  to="/contact"
+                <BookConsultationButton
                   onClick={() => setMobileOpen(false)}
                   className="block font-body text-[15px] font-medium bg-white text-[#09090B] px-6 py-4 rounded-lg text-center hover:bg-swann-gold transition-colors"
                 >
                   Book a Consultation
-                </Link>
+                </BookConsultationButton>
               </motion.div>
 
               {/* Social + Contact */}

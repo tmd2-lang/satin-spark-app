@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import BookConsultationButton from "./BookConsultationButton";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const footerLinks = {
@@ -43,12 +44,11 @@ const CTAFooter = () => {
           <p className="font-body text-[16px] font-light text-swann-text-dim mb-10 max-w-[440px] mx-auto">
             It starts with a conversation. Then a strategy. Then results.
           </p>
-          <Link
-            to="/contact"
+          <BookConsultationButton
             className="inline-flex font-body text-[15px] font-medium bg-white text-[#09090B] px-10 py-4 rounded-lg hover:bg-swann-gold hover:shadow-[0_8px_30px_rgba(201,169,110,0.3)] hover:-translate-y-0.5 transition-all duration-300"
           >
             Book a Consultation →
-          </Link>
+          </BookConsultationButton>
         </div>
       </div>
 
