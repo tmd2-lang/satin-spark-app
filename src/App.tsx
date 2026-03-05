@@ -9,6 +9,8 @@ import About from "./pages/About";
 import SEOPage from "./pages/SEOPage";
 import BrandIdentityPage from "./pages/BrandIdentityPage";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
+import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +20,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
+        <CustomCursor />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services/websites" element={<BespokeWebsites />} />

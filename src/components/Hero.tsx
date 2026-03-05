@@ -1,35 +1,55 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
+};
 
 const Hero = () => {
-  const { ref, isVisible } = useScrollAnimation(0.1);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, 80]);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       className="relative min-h-screen flex flex-col justify-center bg-swann-dark overflow-hidden"
     >
-      {/* Grid background */}
-      <div className="absolute inset-0 bg-grid-pattern" />
+      {/* Grid background with parallax */}
+      <motion.div className="absolute inset-0 bg-grid-pattern" style={{ y: gridY }} />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#09090B_70%)]" />
-      {/* Subtle gold glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,_rgba(201,169,110,0.06)_0%,_transparent_70%)]" />
 
       <div className="relative z-10 max-w-[1320px] mx-auto px-6 pt-28 md:pt-32 pb-12 md:pb-20 w-full">
-        <div
-          className={`transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(201,169,110,0.12)] border border-swann-gold/20 mb-8">
-            <div className="w-1.5 h-1.5 rounded-full bg-swann-gold" />
-            <span className="font-body text-[12px] uppercase tracking-[0.12em] text-swann-gold">
-              Digital Atelier for Aesthetics
-            </span>
-          </div>
+          <motion.div variants={fadeUp}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(201,169,110,0.12)] border border-swann-gold/20 mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-swann-gold" />
+              <span className="font-body text-[12px] uppercase tracking-[0.12em] text-swann-gold">
+                Digital Atelier for Aesthetics
+              </span>
+            </div>
+          </motion.div>
 
           {/* Headline */}
-          <h1
+          <motion.h1
+            variants={fadeUp}
             className="font-headline font-bold tracking-[-0.02em] text-white mb-6 max-w-[820px]"
             style={{ fontSize: "clamp(36px, 5.5vw, 68px)", lineHeight: 1.05 }}
           >
@@ -37,16 +57,19 @@ const Hero = () => {
             <span className="text-gold-gradient">Captivate</span>.
             <br />
             Engineered to Convert.
-          </h1>
+          </motion.h1>
 
           {/* Subheadline */}
-          <p className="font-body text-[16px] md:text-[18px] font-light text-swann-text-dim max-w-[520px] mb-10 leading-relaxed">
+          <motion.p
+            variants={fadeUp}
+            className="font-body text-[16px] md:text-[18px] font-light text-swann-text-dim max-w-[520px] mb-10 leading-relaxed"
+          >
             AI-powered websites and digital strategy for med spas, plastic
             surgery practices, and aesthetics businesses that refuse to blend in.
-          </p>
+          </motion.p>
 
           {/* CTAs */}
-          <div className="flex flex-col min-[400px]:flex-row gap-4 mb-16 md:mb-20">
+          <motion.div variants={fadeUp} className="flex flex-col min-[400px]:flex-row gap-4 mb-16 md:mb-20">
             <a
               href="#portfolio"
               className="font-body text-[14px] font-medium bg-white text-[#09090B] px-8 py-3.5 rounded-lg hover:bg-swann-gold transition-colors duration-200 text-center"
@@ -59,13 +82,18 @@ const Hero = () => {
             >
               How It Works
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom tagline */}
-        <p className="font-body text-[12px] uppercase tracking-[0.12em] text-swann-text-dimmer">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="font-body text-[12px] uppercase tracking-[0.12em] text-swann-text-dimmer"
+        >
           The technology is invisible — the taste is not.
-        </p>
+        </motion.p>
       </div>
     </section>
   );
