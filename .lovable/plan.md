@@ -1,45 +1,66 @@
 
 
-# Entrance Animations + Success Feedback — Contact Page & Mobile Sheet
+# Animation Upgrade — Homepage & Site-Wide Sections
 
-## Contact Page (`src/pages/Contact.tsx`)
+## The Problem
+Right now, every section outside the Hero and Contact page uses the exact same animation: a simple CSS `opacity-0 translate-y-8 → opacity-100 translate-y-0` triggered by `useScrollAnimation`. It's functional but flat — everything fades up identically, no staggering, no variety, no personality. For a site selling premium digital experiences, the animations should *demonstrate* that capability.
 
-Replace the basic `useScrollAnimation` fade with rich `framer-motion` orchestrated animations:
+## The Approach
+Replace the generic CSS transitions with `framer-motion` orchestrated animations across all homepage sections. Each section gets a distinct animation treatment that suits its content type, while maintaining a cohesive feel.
 
-**Left column — staggered cascade:**
-- Section label slides in from left with blur dissolve (delay 0)
-- Each headline line ("When You're", "Ready for", "What's Next") staggers in one-by-one from left with spring physics (delays 0.15, 0.3, 0.45)
-- Contact info blocks (Call, Email, Follow) fade up with stagger (delays 0.7, 0.85, 1.0)
+## Section-by-Section Plan
 
-**Right column — form entrance:**
-- Subheadline fades in (delay 0.3)
-- Each form row cascades in from bottom with stagger (delays 0.4, 0.55, 0.7, 0.85, 1.0, 1.1)
-- Submit button scales in with a slight overshoot spring (delay 1.2)
+### Industries (carousel cards)
+- Header text: staggered fade-up (label → headline → subtext)
+- Carousel cards: stagger in from the right with a slight rotation (`rotateY: 8deg → 0`), each card delayed 0.1s — gives a "dealing cards" feel
+- On hover: subtle lift + shadow expansion (already has scale, add shadow)
 
-**Service pills** get a pop-in micro-animation on toggle — `scale: [1, 1.15, 1]` with gold glow pulse when selected.
+### Services (tabbed content)
+- Header: staggered cascade like Industries
+- Tab bar buttons: stagger in from bottom
+- When switching tabs: use `AnimatePresence` with `mode="wait"` so the image and content cross-fade with a subtle directional slide (left tab → slide left, right tab → slide right)
+- Service pills: pop in with scale spring
 
-**Success state:** On submit, the entire form fades out and is replaced by a success view:
-- Large animated checkmark (SVG circle + check drawn with `motion.path` `pathLength` animation)
-- "We'll be in touch" headline with fade-up
-- "Expect to hear from us within 24 hours" subtext
-- "Send another message" link to reset the form
+### Portfolio (project grid)
+- Header: staggered cascade
+- Project cards: stagger in with a masonry-like feel — each card fades up with increasing delays (0.1, 0.2, 0.3)
+- Filter pills: when switching filters, cards exit with scale-down + fade, new cards enter with scale-up + fade using `AnimatePresence` + `layout` for smooth reflow
 
-## Mobile Bottom Sheet (`src/components/MobileContactSheet.tsx`)
+### Stats (number counters)
+- Each stat staggers in from bottom (0.15s delay between each)
+- The stat values get a counting-up animation — numbers animate from 0 to their final value over 1.5s using `useMotionValue` + `useTransform` + `animate` from framer-motion
+- The gold dividers between stats draw in with a width animation
 
-**Form field stagger:** Each field slides up with 0.08s stagger delay after the sheet opens.
+### Testimonials (carousel cards)
+- Header: staggered cascade
+- Cards: stagger in from below with slight rotation (`rotate: 2deg → 0`) and increasing delays — gives a "fanned out" entrance
 
-**Success state:** Same concept — after submit, form morphs into a checkmark + confirmation message with a satisfying spring animation. Auto-closes after 2.5 seconds.
+### Journal (article cards)
+- Header: staggered cascade
+- Cards: one slides in from left, the other from right, meeting in the middle
+- Category labels: fade in with a gold underline that draws from left to right
 
-**Submit button:** Add a brief loading shimmer (0.5s) before showing success to feel real.
+### CTAFooter (CTA block + footer)
+- The radial gold gradient pulses subtly on loop (scale 1 → 1.1 → 1, opacity cycle)
+- Headline words stagger in one by one
+- CTA button: scales in with overshoot spring, then has a subtle idle "breathe" animation (scale 1 → 1.02 → 1 on loop)
+- Footer link columns: stagger in from bottom
 
 ## Technical Approach
-- Use `framer-motion`'s `motion.div`, `variants`, `staggerChildren`, and `AnimatePresence` for all orchestration
-- Animated checkmark uses `motion.circle` + `motion.path` with `pathLength` from 0 to 1
-- Success state managed via `useState<"form" | "success">`
-- Contact page uses `useInView` from framer-motion instead of the custom `useScrollAnimation` hook
-- No new dependencies needed — everything uses existing `framer-motion`
+- All sections switch from `useScrollAnimation` + CSS transitions to `framer-motion`'s `useInView` + `motion.div` with `variants`
+- Stats counter uses `useMotionValue`, `useTransform`, and `animate` from framer-motion — no new dependencies
+- Tab switching in Services uses `AnimatePresence mode="wait"` with directional variants
+- Portfolio filter uses `AnimatePresence` + `layout` prop for smooth card reflow
+- The `useScrollAnimation` hook can remain for any subpages still using it
 
 ## Files Changed
-- **`src/pages/Contact.tsx`** — Full rewrite with motion components, staggered entrance, success state
-- **`src/components/MobileContactSheet.tsx`** — Add field stagger, submit shimmer, success state with auto-close
+- `src/components/Industries.tsx`
+- `src/components/Services.tsx`
+- `src/components/Portfolio.tsx`
+- `src/components/Stats.tsx`
+- `src/components/Testimonials.tsx`
+- `src/components/Journal.tsx`
+- `src/components/CTAFooter.tsx`
+
+No new dependencies — everything uses the existing `framer-motion` package.
 
