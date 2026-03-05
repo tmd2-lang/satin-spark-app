@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import SectionLabel from "./SectionLabel";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import designTabImage from "@/assets/design-tab.png";
 
 const tabs = [
   {
@@ -10,7 +11,7 @@ const tabs = [
     description:
       "Develop a distinct and memorable digital presence that positions your practice above others in the minds of new patients.",
     pills: ["Bespoke Websites", "Brand Identity"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    image: designTabImage,
   },
   {
     id: "growth",
