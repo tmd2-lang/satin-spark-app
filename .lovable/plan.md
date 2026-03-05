@@ -1,87 +1,43 @@
 
 
-# Swann Company — Premium Homepage
+# Carousel Upgrade + Mobile Polish
 
-## Overview
-A cinematic, agency-quality homepage for Swann Company, a digital studio serving aesthetics businesses. The design follows a dark/light alternating rhythm with a "new money luxe" aesthetic — sharp, tech-forward, and intentional. Reference feel: studio3marketing.com, linear.app, stripe.com.
+## 1. Embla Carousel Integration
+Replace the CSS `overflow-x-auto` scroll on **Industries** and **Testimonials** with Embla Carousel (already installed as `embla-carousel-react`). This gives us:
+- Smooth momentum-based dragging on desktop
+- Native touch swiping on mobile
+- Proper slide alignment and snapping
+- `dragFree: true` for the Netflix-style feel
 
-## Design System
-- **Dark backgrounds**: #09090B / elevated #111114
-- **Light sections**: #FAFAF8
-- **Accent gold**: #C9A96E (used sparingly — thin lines, pills, hover states)
-- **Typography**: Syne (headlines, bold 700) + Outfit (body, 300-500) — no serifs
-- **Section label motif**: 32px gold line + uppercase gold label on every section
+Both components will use `useEmblaCarousel` directly (no need for the shadcn Carousel wrapper — too opinionated for this edge-to-edge layout).
 
-## Page Structure (8 Sections)
+## 2. Mobile Responsiveness Pass
+Targeted fixes across all sections:
 
-### 1. Navigation (Fixed)
-- Transparent over hero → blurred dark backdrop on scroll
-- Logo: "SWANN" (Syne bold) + "company" (Outfit light uppercase)
-- Links: Industries · Services · Portfolio · About · Journal
-- CTA button: "Book a Consultation" — white bg → gold on hover
-- Mobile: hamburger menu
+**Navbar** — Mobile menu gets a smooth slide-down animation instead of hard toggle. Lock body scroll when open.
 
-### 2. Hero (Dark — Full Viewport)
-- Faint grid lines background with radial fade + subtle gold glow
-- Gold pill badge: "Digital Atelier for Aesthetics"
-- Headline: "Designed to Captivate. Engineered to Convert." — "Captivate" in gold gradient text
-- Subheadline describing AI-powered websites for aesthetics businesses
-- Two CTAs: "See Our Work" (solid white) + "How It Works" (ghost border)
-- Bottom tagline: "The technology is invisible — the taste is not."
+**Hero** — Reduce bottom padding on mobile. Stack CTAs vertically on very small screens (`flex-col` below 400px).
 
-### 3. Industries Carousel (Light)
-- Headline: "Built for the aesthetics industry."
-- Netflix-style horizontal scroll carousel, edge-to-edge bleed
-- 6 cards (350-400px wide): Med Spas, Plastic Surgery, Aestheticians, Luxury Spas, Dermatology, Multi-Location
-- Each card: large image + dark gradient overlay + name + arrow
-- Draggable on desktop, swipeable on mobile
+**Industries carousel** — Cards shrink to `280px` wide on mobile. Proper touch area and gap adjustments.
 
-### 4. Services — Tabbed Section (Dark)
-- Two-column layout inspired by studio3marketing.com
-- Left: large image that transitions on tab switch
-- Right: pillar headline, description, service pills
-- Bottom tab bar: Design · Growth · Presence · Intelligence (gold underline on active)
-- Content changes with fade transition on tab click
-- Mobile: stacked/accordion layout
+**Services** — On mobile, image goes above content (already `grid-cols-1` on small). Tab labels get smaller text. Consider horizontal scroll for tab bar if it wraps awkwardly.
 
-### 5. Portfolio (Light)
-- 3 large landscape project cards in a row
-- Each: image + project name + "→ Case Study" link + industry tag
-- Filter pills below: All · Med Spas · Plastic Surgery · Aestheticians · Spas · Dermatology
-- Placeholder projects: Luminare Medical Spa, Dr. Chen Aesthetics, FORMA Skin Studio
+**Portfolio** — Cards stack to single column on mobile (already handled). Filter pills become horizontally scrollable if they overflow.
 
-### 6. Stats (Dark)
-- Single row, 4 stats with vertical dividers
-- 100% HIPAA Compliant · 3.2x Avg. Traffic Increase · <48h Response Time · 97% Client Retention
-- Clean and minimal — numbers only, no cards
+**Stats** — Already `grid-cols-2` on mobile, which works. Add horizontal dividers between rows on mobile.
 
-### 7. Testimonials (Light)
-- Horizontal scrolling testimonial cards
-- Each: quote, gold divider line, client name, practice info
-- 2-3 visible at a time, scroll for more
+**Testimonials carousel** — Cards shrink to `300px` on mobile with Embla integration.
 
-### 8. Journal (Dark)
-- 2 article cards side by side
-- Image + category tag + article title
-- Placeholder articles about med spa websites and HIPAA compliance
+**Journal** — Already stacks on mobile. Reduce image aspect ratio slightly on small screens.
 
-### 9. CTA + Footer (Dark)
-- Large centered headline: "When you're ready for what's next."
-- Subheadline + large "Book a Consultation →" button with gold hover glow
-- Subtle radial gold gradient atmosphere
-- Footer: logo + tagline, 3 link columns (Company, Industries, Services), copyright bar with social icons
+**CTA + Footer** — Footer link columns stack properly. Bottom bar centers on mobile. Social icons get proper spacing.
 
-## Animations
-- Scroll-triggered fade-in + slide-up with staggered delays per section
-- Nav blur transition on scroll
-- Smooth tab content transitions in services section
-- Momentum-based carousel scrolling
-- Subtle hover effects (scale, color shifts) — polished, never bouncy
-
-## Responsive
-- Desktop-first, fully responsive
-- Hero headline uses clamp() sizing
-- Grids collapse to stacked on mobile
-- Carousels become touch-swipeable
-- Services tabs become stacked/accordion on mobile
+## 3. Implementation Files
+- `src/components/Industries.tsx` — Embla carousel + mobile card sizing
+- `src/components/Testimonials.tsx` — Embla carousel + mobile card sizing
+- `src/components/Navbar.tsx` — Animated mobile menu + body scroll lock
+- `src/components/Hero.tsx` — Mobile CTA layout tweaks
+- `src/components/Portfolio.tsx` — Scrollable filter pills on mobile
+- `src/components/Stats.tsx` — Mobile divider adjustments
+- `src/components/CTAFooter.tsx` — Footer mobile layout fixes
 
