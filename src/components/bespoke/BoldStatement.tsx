@@ -14,13 +14,13 @@ const BoldStatement = () => {
           Swann Bespoke Websites
         </span>
         <h2 className="font-headline font-bold uppercase text-[clamp(26px,4.5vw,60px)] leading-[0.95] tracking-[-0.03em] text-foreground">
-          How Are You Different or
+          50 Milliseconds.
+          <br />
+          That's How Long You Have to Make
           <br className="hidden md:block" />
-          Better Than Competitors?
-          <br className="hidden md:block" />
-          The Answer Starts With
-          <br className="hidden md:block" />
-          Your Website.
+          a First Impression Online.
+          <br />
+          We Don't Waste a Single One.
         </h2>
       </div>
     </section>

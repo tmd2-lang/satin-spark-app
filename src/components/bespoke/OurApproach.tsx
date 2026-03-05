@@ -24,14 +24,14 @@ const OurApproach = () => {
 
           {/* Content */}
           <div>
-            <SectionLabel label="The Swann Approach" />
+            <SectionLabel label="How We Think" />
             <h2 className="font-headline text-[clamp(28px,3vw,42px)] font-bold text-foreground tracking-[-0.02em] leading-[1.1] mb-6">
-              Your Website Should
+              The Websites Nobody
               <br />
-              Reflect Your Excellence
+              Scrolls Past
             </h2>
             <p className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-10 max-w-[520px]">
-              Your website isn't just a digital brochure — it's a strategic asset that informs, attracts, and converts visitors into patients. If your site doesn't clearly communicate your expertise, quality of care, and what sets you apart, patients leave thinking "Nothing special. They seem like every other practice in the search results."
+              Your website isn't a brochure you hand out at the front desk. It's the first conversation you have with every potential patient — before they ever call, book, or walk through your door. If that conversation is generic, forgettable, or confusing, they're already looking at your competitor. We design websites that stop the scroll, earn the trust, and start the relationship.
             </p>
 
             <div>

@@ -48,7 +48,7 @@ const JournalFeed = () => {
   return (
     <section ref={ref} className="bg-swann-light py-24 md:py-32 overflow-hidden">
       <div className="max-w-[1320px] mx-auto px-6 mb-6">
-        <SectionLabel label="Swann Journal: Bespoke Websites" />
+        <SectionLabel label="Swann Journal" />
       </div>
 
       <div className="max-w-[1320px] mx-auto px-6 mb-12">
@@ -57,11 +57,11 @@ const JournalFeed = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          There's a Direct Correlation
+          The Best Aesthetics Practices
           <br className="hidden md:block" />
-          Between Web Creative and
+          Don't Just Invest in Their Craft.
           <br className="hidden md:block" />
-          Patient Acquisition
+          They Invest in How It's Perceived.
         </h2>
       </div>
 

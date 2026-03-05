@@ -22,16 +22,14 @@ const BespokeHero = () => {
 
         {/* Headline */}
         <h1 className="font-headline font-bold uppercase text-[clamp(32px,5.5vw,72px)] leading-[0.95] tracking-[-0.03em] text-foreground mb-8">
-          Bespoke by Design
+          Every Detail Is Intentional.
           <br />
-          Built to Captivate
-          <br />
-          and Convert
+          Every Pixel Performs.
         </h1>
 
         {/* Body */}
         <p className="font-body text-[16px] md:text-[18px] font-light text-swann-text-dim max-w-[640px] mx-auto leading-relaxed mb-10">
-          There are reasons why Swann Company websites are becoming the creative standard for aesthetics practices that care about brand, performance, and patient experience. Every strategic, visual, and functional detail matters — because we're not just building a website. We're building the engine of your growth.
+          Swann Company websites aren't built from templates or assembled from parts. They're designed from zero — crafted around your practice, your patients, and the results you need. This is what happens when AI precision meets human artistry.
         </p>
 
         {/* Divider */}
@@ -39,7 +37,7 @@ const BespokeHero = () => {
 
         {/* Sub-label */}
         <span className="font-body text-[11px] uppercase tracking-[0.15em] text-swann-gold">
-          Bespoke Websites for Aesthetics
+          Bespoke Websites for Aesthetics Businesses
         </span>
       </div>
     </section>

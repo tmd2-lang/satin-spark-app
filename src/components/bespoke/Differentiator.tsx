@@ -14,22 +14,22 @@ const Differentiator = () => {
         >
           {/* Content */}
           <div>
-            <SectionLabel label="Swann Website Specialties" dark />
+            <SectionLabel label="What Makes Swann Different" dark />
             <h2 className="font-headline text-[clamp(26px,3vw,40px)] font-bold text-white tracking-[-0.02em] leading-[1.1] mb-6">
-              We Started With AI.
+              AI Builds the Foundation.
               <br />
-              Craft Became Essential.
+              We Build the Experience.
             </h2>
             <p className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-10 max-w-[480px]">
-              Swann Company was built as an AI-native digital studio from day one. But we quickly learned that AI alone isn't enough — aesthetics businesses demand a level of visual craft and emotional resonance that only human creativity can deliver. Today, our approach combines AI speed and intelligence with hands-on design refinement. The result: bespoke websites that would take a traditional agency months, delivered in a fraction of the time without sacrificing an ounce of quality.
+              Most agencies spend 400 hours and six figures building one website. Most template builders spend 4 hours and give you something that looks like everyone else. Swann exists in the space between — AI handles the structural heavy lifting (architecture, SEO framework, responsive optimization, content scaffolding) while our designers obsess over the details that make patients feel something. The result is bespoke work delivered at a pace and price point that traditional agencies can't touch.
             </p>
 
             <div>
               <h4 className="font-headline text-[16px] font-bold text-white mb-2">
-                AI + Human, Under One Roof
+                Two Minds, One Output
               </h4>
               <p className="font-body text-[14px] font-light text-swann-text-dim leading-relaxed max-w-[440px]">
-                AI handles the heavy lifting — content generation, SEO structure, responsive optimization. Our designers handle the soul — brand expression, visual storytelling, the details that make patients feel something.
+                Think of it as an architect and an artist working on the same building. AI is the architect — efficient, precise, structurally sound. Our team is the artist — the custom finishes, the lighting, the feeling you get when you walk in. You need both. That's what we deliver.
               </p>
             </div>
           </div>

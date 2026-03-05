@@ -18,7 +18,7 @@ const caseStudies = [
   {
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
     client: "Dr. Chen Aesthetics",
-    description: "A HIPAA-compliant, conversion-focused website with custom photography and patient journey mapping for a boutique plastic surgery practice.",
+    description: "A conversion-focused redesign for a Beverly Hills plastic surgery practice competing in the most saturated market in the country.",
     metrics: [
       { value: "2x", label: "Consultations" },
       { value: "48", label: "Custom Pages" },
@@ -28,10 +28,10 @@ const caseStudies = [
   {
     image: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=800&q=80",
     client: "FORMA Skin Studio",
-    description: "Brand identity and web platform built from scratch for an emerging skincare studio, including video content and SEO strategy.",
+    description: "Brand identity and website for a modern aesthetician studio that needed to stand out in a crowded urban market.",
     metrics: [
       { value: "+180%", label: "Organic Traffic" },
-      { value: "Full", label: "Brand Redesign" },
+      { value: "Complete", label: "Rebrand" },
       { value: "5", label: "Service Videos" },
     ],
   },

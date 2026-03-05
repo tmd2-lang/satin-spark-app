@@ -24,32 +24,32 @@ const DeepDive = () => {
 
           {/* Content */}
           <div className="lg:pt-8">
-            <SectionLabel label="Websites for Aesthetics Practices" />
+            <SectionLabel label="The Engine of Your Practice" />
             <h2 className="font-headline text-[clamp(26px,3vw,40px)] font-bold text-foreground tracking-[-0.02em] leading-[1.1] mb-6">
-              We're Building the Engine
+              Where Every Visit Becomes
               <br />
-              of Your Marketing
+              a Consultation
             </h2>
             <p className="font-body text-[16px] font-light text-swann-text-dim leading-relaxed mb-10 max-w-[520px]">
-              All the time and effort you've invested in growing your practice — through referrals, ads, word-of-mouth — funnels to one place: your website. Nearly every patient will look at your website before making a decision. We make the most of that moment by turning interest into booked appointments, trust in what you offer, and measurable growth.
+              Every dollar you spend on marketing — every Instagram ad, every Google listing, every patient referral — sends people to the same place: your website. It's the single highest-leverage asset in your entire practice. We treat it that way. Swann websites are engineered to turn that traffic into trust, and that trust into booked appointments.
             </p>
 
             {/* Sub-points */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <h4 className="font-headline text-[16px] font-bold text-foreground mb-2">
-                  Split-Second Branding
+                  First Impressions Are Visual
                 </h4>
                 <p className="font-body text-[14px] font-light text-swann-text-dim leading-relaxed">
-                  It takes just 50 milliseconds for someone to form a first impression of your website. And 94% of that impression is visual. We know how to capture attention and keep it.
+                  94% of first impressions are design-related. Your patients are judging your clinical quality by your website's visual quality. We make sure those two things match.
                 </p>
               </div>
               <div>
                 <h4 className="font-headline text-[16px] font-bold text-foreground mb-2">
-                  Conversion Optimization
+                  The Conversation, Not the Close
                 </h4>
                 <p className="font-body text-[14px] font-light text-swann-text-dim leading-relaxed">
-                  Careless web design assumes visitors will immediately book. Like a pushy salesperson, it tries to close too soon. Our approach starts a conversation that naturally leads to a consultation.
+                  Aggressive popups and desperate CTAs repel patients. Our approach builds a natural flow — educate, inspire confidence, then invite action. It works because it respects the patient's intelligence.
                 </p>
               </div>
             </div>

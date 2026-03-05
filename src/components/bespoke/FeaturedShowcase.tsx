@@ -26,14 +26,12 @@ const FeaturedShowcase = () => {
         }`}
       >
         <span className="font-body text-[11px] uppercase tracking-[0.15em] text-swann-gold mb-4 block">
-          Featured Project
+          Swann Project
         </span>
         <h2 className="font-headline font-bold uppercase text-[clamp(22px,3.5vw,44px)] leading-[1] tracking-[-0.02em] text-white mb-6">
-          No Templates. No Clichés.
+          Your Patients Decide in Half a Second.
           <br />
-          Custom Designs That Convert
-          <br />
-          Curiosity into Consultations.
+          We Make That Half Second Count.
         </h2>
         <a
           href="#"
@@ -47,7 +45,7 @@ const FeaturedShowcase = () => {
       <div className="absolute bottom-6 right-6 md:bottom-16 md:right-16 hidden md:flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
         <div className="w-2 h-2 rounded-full bg-swann-gold" />
         <span className="font-body text-[11px] uppercase tracking-[0.1em] text-white/80">
-          Award-Winning Design
+          Aesthetics-First Design
         </span>
       </div>
     </section>

@@ -17,13 +17,13 @@ const BespokeWebsites = () => (
     <Navbar />
     <BespokeHero />
     <FeaturedShowcase />
-    <OurApproach />
     <PhilosophyCarousel />
     <BoldStatement />
+    <OurApproach />
     <DeepDive />
     <Differentiator />
-    <JournalFeed />
     <CaseStudiesCarousel />
+    <JournalFeed />
     <RelatedServices />
     <ContactCTA />
     <CTAFooter />
