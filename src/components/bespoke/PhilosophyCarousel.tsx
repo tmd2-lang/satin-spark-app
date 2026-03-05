@@ -7,23 +7,23 @@ import SectionLabel from "@/components/SectionLabel";
 const cards = [
   {
     image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800&q=80",
-    title: "It's All About Conversion",
-    text: "Getting someone's attention is the hardest part of marketing. So when a potential patient finally lands on your website, it needs to deliver: visually compelling, communicates clearly, and converts interest into booked consultations.",
+    title: "Conversion Is the Craft",
+    text: "A beautiful website that doesn't book consultations is just art hanging on a wall. Every layout decision, every CTA placement, every word we write is reverse-engineered from one goal: turning visitors into patients.",
   },
   {
     image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=800&q=80",
-    title: "Visual First. Explain Second.",
-    text: "Attention is fleeting. Most people skim instead of reading. We draw them in through visuals and strategic design that make them pause to learn more about your practice.",
+    title: "Show Before You Tell",
+    text: "Your patients don't read — they scan. In three seconds they've decided if you're worth their time. We lead with visuals that demand attention, then layer in the story that keeps them engaged.",
   },
   {
     image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
-    title: "Design Drives Performance",
-    text: "Every design decision is rooted in performance marketing. Engaging visuals, video, and copy keep visitors interacting longer — increasing conversions and improving your SEO.",
+    title: "Aesthetics Demands Aesthetics",
+    text: "You're in the business of beauty. Your digital presence can't be anything less. Every photo, animation, and interaction on a Swann website is held to the same standard your patients hold you to.",
   },
   {
     image: "https://images.unsplash.com/photo-1595959183082-7b570b7e1e6b?w=800&q=80",
-    title: "Brand Storytelling",
-    text: "Information tells. Emotion sells. Simply listing your services won't cut it when every competitor says the same thing. We craft a story that connects with patients on a human level.",
+    title: "Compliance Isn't an Add-On",
+    text: "HIPAA. Medical advertising rules. Before/after photo regulations. State-by-state consent requirements. Most agencies learn about these the hard way. We build them in from the first wireframe.",
   },
 ];
 
