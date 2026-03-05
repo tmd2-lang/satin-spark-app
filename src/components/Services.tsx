@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import SectionLabel from "./SectionLabel";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import designTabImage from "@/assets/design-tab.png";
+import presenceTabImage from "@/assets/presence-tab.jpg";
 
 const tabs = [
   {
@@ -29,7 +30,7 @@ const tabs = [
     description:
       "Expand your reach to build a broader audience who's aware of and admires your brand, laying the foundation for future patients.",
     pills: ["Social Media", "Email Marketing"],
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    image: presenceTabImage,
   },
   {
     id: "intelligence",
