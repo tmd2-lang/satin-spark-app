@@ -6,12 +6,13 @@ import { useRef } from "react";
 import medspaImage from "@/assets/medspa-industry.jpeg";
 import plasticSurgeryImage from "@/assets/plastic-surgery-industry.jpeg";
 import aestheticianImage from "@/assets/aesthetician-industry.jpeg";
+import luxurySpaImage from "@/assets/luxury-spa-industry.jpeg";
 
 const industries = [
   { name: "Med Spas", image: medspaImage },
   { name: "Plastic Surgery", image: plasticSurgeryImage },
   { name: "Aestheticians", image: aestheticianImage },
-  { name: "Luxury Spas", image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" },
+  { name: "Luxury Spas", image: luxurySpaImage },
   { name: "Dermatology", image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80" },
   { name: "Multi-Location", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" },
 ];
