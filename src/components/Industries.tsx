@@ -3,9 +3,10 @@ import { ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import medspaImage from "@/assets/medspa-industry.jpeg";
 
 const industries = [
-  { name: "Med Spas", image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80" },
+  { name: "Med Spas", image: medspaImage },
   { name: "Plastic Surgery", image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" },
   { name: "Aestheticians", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" },
   { name: "Luxury Spas", image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" },
