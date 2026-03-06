@@ -8,6 +8,7 @@ import plasticSurgeryImage from "@/assets/plastic-surgery-industry.jpeg";
 import aestheticianImage from "@/assets/aesthetician-industry.jpeg";
 import luxurySpaImage from "@/assets/luxury-spa-industry.jpeg";
 import dermatologyImage from "@/assets/dermatology-industry.jpeg";
+import multiLocationImage from "@/assets/multi-location-industry.jpeg";
 
 const industries = [
   { name: "Med Spas", image: medspaImage },
@@ -15,7 +16,7 @@ const industries = [
   { name: "Aestheticians", image: aestheticianImage },
   { name: "Luxury Spas", image: luxurySpaImage },
   { name: "Dermatology", image: dermatologyImage },
-  { name: "Multi-Location", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" },
+  { name: "Multi-Location", image: multiLocationImage },
 ];
 
 const headerVariants = {
