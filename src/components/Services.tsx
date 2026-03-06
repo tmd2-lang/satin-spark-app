@@ -3,6 +3,7 @@ import SectionLabel from "./SectionLabel";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import designTabImage from "@/assets/design-tab.jpg";
 import presenceTabImage from "@/assets/presence-tab-opt.jpg";
+import intelligenceTabImage from "@/assets/intelligence-tab.jpeg";
 
 const tabs = [
   {
@@ -39,7 +40,7 @@ const tabs = [
     description:
       "Most digital marketing is templated, confined by one-size-fits-all software. You need customized intelligence to compete.",
     pills: ["Analytics & Reporting", "Compliance & HIPAA"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    image: intelligenceTabImage,
   },
 ];
 
