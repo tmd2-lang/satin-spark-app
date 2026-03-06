@@ -34,9 +34,12 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
 
   // Text color logic: on light-hero pages, dark text when not scrolled
-  const textBase = !scrolled && isLightHero ? "text-[#111114]" : "text-white";
-  const textDim = !scrolled && isLightHero ? "text-[#111114]/60" : "text-white/60";
-  const borderColor = !scrolled && isLightHero ? "border-[#111114]/10" : "border-white/[0.06]";
+  const isLight = !scrolled && isLightHero;
+  const textBase = isLight ? "text-[#111114]" : "text-white";
+  const linkClasses = isLight
+    ? "text-[#111114]/60 hover:text-[#111114]"
+    : "text-white/60 hover:text-white";
+  const borderColor = isLight ? "border-[#111114]/10" : "border-white/[0.06]";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -94,7 +97,7 @@ const Navbar = () => {
           <span className={`font-headline text-[18px] font-bold tracking-[-0.02em] transition-colors duration-300 ${textBase}`}>
             SWANN
           </span>
-          <span className={`font-body text-[10px] font-light uppercase tracking-[0.15em] transition-colors duration-300 ${textDim}`}>
+          <span className={`font-body text-[10px] font-light uppercase tracking-[0.15em] transition-colors duration-300 ${isLight ? "text-[#111114]/60" : "text-white/60"}`}>
             company
           </span>
         </Link>
@@ -106,7 +109,7 @@ const Navbar = () => {
               <div key="services" ref={dropdownRef} className="relative">
                 <button
                   onClick={() => setServicesOpen(!servicesOpen)}
-                  className={`flex items-center gap-1 font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${textDim} hover:${textBase}`}
+                  className={`flex items-center gap-1 font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${linkClasses}`}
                 >
                   Services
                   <ChevronDown
@@ -143,7 +146,7 @@ const Navbar = () => {
               <Link
                 key={link.label}
                 to={link.to}
-                className={`font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${textDim} hover:${textBase}`}
+                className={`font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${linkClasses}`}
               >
                 {link.label}
               </Link>
@@ -151,7 +154,7 @@ const Navbar = () => {
               <button
                 key={link.label}
                 onClick={() => handleHashLink(link.hash!)}
-                className={`font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${textDim} hover:${textBase}`}
+                className={`font-body text-[13px] font-light transition-colors duration-200 tracking-wide ${linkClasses}`}
               >
                 {link.label}
               </button>
@@ -162,7 +165,7 @@ const Navbar = () => {
         {/* CTA */}
         <BookConsultationButton
           className={`hidden md:inline-flex font-body text-[13px] font-medium px-5 py-2.5 rounded-md transition-colors duration-200 ${
-            !scrolled && isLightHero
+            isLight
               ? "bg-[#111114] text-white hover:bg-swann-gold hover:text-[#09090B]"
               : "bg-white text-[#09090B] hover:bg-swann-gold hover:text-[#09090B]"
           }`}
