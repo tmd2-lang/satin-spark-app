@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import HeroWave from "./ui/dynamic-wave-canvas-background";
 
 const stagger = {
   hidden: {},
@@ -14,20 +14,11 @@ const fadeUp = {
 };
 
 const Hero = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const gridY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
   return (
     <section
-      ref={sectionRef}
       className="relative min-h-screen flex flex-col justify-center bg-swann-dark overflow-hidden"
     >
-      {/* Grid background with parallax */}
-      <motion.div className="absolute inset-0 bg-grid-pattern" style={{ y: gridY }} />
+      <HeroWave />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#09090B_70%)]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,_rgba(201,169,110,0.06)_0%,_transparent_70%)]" />
 
