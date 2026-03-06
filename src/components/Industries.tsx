@@ -4,10 +4,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import medspaImage from "@/assets/medspa-industry.jpeg";
+import plasticSurgeryImage from "@/assets/plastic-surgery-industry.jpeg";
 
 const industries = [
   { name: "Med Spas", image: medspaImage },
-  { name: "Plastic Surgery", image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" },
+  { name: "Plastic Surgery", image: plasticSurgeryImage },
   { name: "Aestheticians", image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" },
   { name: "Luxury Spas", image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80" },
   { name: "Dermatology", image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80" },
