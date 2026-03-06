@@ -62,13 +62,13 @@ const HeroWave = () => {
           }
 
           const wave = (fastSin(a) + fastCos(d)) * 0.5;
-          const intensity = 0.18 * (0.3 + 0.4 * wave);
+          const intensity = 0.5 * (0.3 + 0.5 * wave);
           const baseVal = 0.1 + 0.15 * fastCos(u_x + u_y + time * 0.2);
           const goldAccent = 0.2 * fastSin(a * 1.5 + time * 0.15);
 
-          const r = Math.max(0, Math.min(1, baseVal * 0.8 + goldAccent * 0.6)) * intensity;
-          const g = Math.max(0, Math.min(1, baseVal * 0.5 + goldAccent * 0.35)) * intensity;
-          const b = Math.max(0, Math.min(1, baseVal * 0.1)) * intensity;
+          const r = Math.max(0, Math.min(1, baseVal * 1.0 + goldAccent * 0.8)) * intensity;
+          const g = Math.max(0, Math.min(1, baseVal * 0.6 + goldAccent * 0.45)) * intensity;
+          const b = Math.max(0, Math.min(1, baseVal * 0.15)) * intensity;
 
           const idx = (y * width + x) * 4;
           data[idx] = r * 255;
